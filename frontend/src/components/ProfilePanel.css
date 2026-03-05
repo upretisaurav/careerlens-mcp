@@ -1,0 +1,273 @@
+/* ─────────────────────────────────────────────
+   CareerLens — Profile Panel Styles
+───────────────────────────────────────────── */
+@import "../styles/tokens.css";
+@import "../styles/animations.css";
+
+/* ── Profile Panel ──────────────────────── */
+.profile-panel {
+  width: 280px;
+  min-width: 280px;
+  height: 100vh;
+  background: var(--bg-2);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  padding: 24px 20px;
+  overflow-y: auto;
+  gap: 0;
+}
+
+.profile-panel::-webkit-scrollbar {
+  width: 4px;
+}
+.profile-panel::-webkit-scrollbar-track {
+  background: transparent;
+}
+.profile-panel::-webkit-scrollbar-thumb {
+  background: var(--border-2);
+  border-radius: 2px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.logo-mark {
+  width: 34px;
+  height: 34px;
+  background: var(--accent);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  box-shadow: 0 0 20px var(--accent-glow);
+}
+
+.logo-text {
+  font-family: var(--font-head);
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text-1);
+  letter-spacing: -0.3px;
+}
+
+.mcp-badge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--accent);
+  background: var(--accent-dim);
+  border: 1px solid rgba(255, 92, 40, 0.25);
+  border-radius: 4px;
+  padding: 2px 8px;
+  width: fit-content;
+  margin-bottom: 28px;
+  letter-spacing: 0.5px;
+}
+
+.panel-section-label {
+  font-family: var(--font-head);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--text-3);
+  margin-bottom: 16px;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-2);
+  margin-bottom: 6px;
+}
+
+.form-group label em {
+  font-style: normal;
+  color: var(--text-3);
+  font-size: 11px;
+  margin-left: 4px;
+}
+
+.form-group input {
+  width: 100%;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-1);
+  font-family: var(--font-body);
+  font-size: 13px;
+  padding: 9px 12px;
+  outline: none;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+
+.form-group input::placeholder {
+  color: var(--text-3);
+}
+
+.form-group input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-dim);
+}
+
+.toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.toggle-row label {
+  margin-bottom: 0;
+}
+
+.toggle-btn {
+  width: 42px;
+  height: 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-2);
+  border-radius: 100px;
+  cursor: pointer;
+  position: relative;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+  padding: 0;
+}
+
+.toggle-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 10px var(--accent-glow);
+}
+
+.toggle-thumb {
+  width: 18px;
+  height: 18px;
+  background: #fff;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.2s;
+}
+
+.toggle-btn.active .toggle-thumb {
+  transform: translateX(18px);
+}
+
+.profile-tip {
+  margin-top: auto;
+  padding: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 11px;
+  color: var(--text-3);
+  line-height: 1.5;
+}
+
+/* ── Import Buttons ──────────────────────── */
+.import-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.import-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-2);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 9px 10px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.import-btn:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--text-1);
+  box-shadow: 0 0 0 1px var(--accent-dim);
+}
+
+.import-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.tool-spinner.small {
+  width: 11px;
+  height: 11px;
+  border-width: 1.5px;
+}
+
+/* ── LinkedIn URL row ─────────────────────── */
+.linkedin-row {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+  animation: slide-up 0.15s ease;
+}
+
+.linkedin-row input {
+  flex: 1;
+  background: var(--bg-card);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-sm);
+  color: var(--text-1);
+  font-family: var(--font-body);
+  font-size: 12px;
+  padding: 8px 10px;
+  outline: none;
+  box-shadow: 0 0 0 3px var(--accent-dim);
+}
+
+.linkedin-row input::placeholder {
+  color: var(--text-3);
+}
+
+.linkedin-go {
+  width: 34px;
+  height: 34px;
+  background: var(--accent);
+  border: none;
+  border-radius: var(--radius-sm);
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+
+.linkedin-go:hover:not(:disabled) {
+  background: #ff7043;
+}
+
+.linkedin-go:disabled {
+  background: var(--bg-card-2);
+  color: var(--text-3);
+  cursor: not-allowed;
+}

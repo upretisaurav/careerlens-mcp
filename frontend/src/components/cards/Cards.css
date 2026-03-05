@@ -1,0 +1,538 @@
+/* ─────────────────────────────────────────────
+   CareerLens — Result Cards Styles
+   Shared Card Styles + All Card Types
+───────────────────────────────────────────── */
+@import "../../styles/tokens.css";
+@import "../../styles/animations.css";
+
+/* ── Result Cards (shared) ───────────────── */
+.result-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  width: 100%;
+  animation: slide-up 0.2s ease;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.card-icon-wrap {
+  font-size: 20px;
+  width: 40px;
+  height: 40px;
+  background: var(--bg-card-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.card-header-text {
+  flex: 1;
+}
+
+.card-title {
+  font-family: var(--font-head);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-1);
+}
+
+.card-subtitle {
+  font-size: 12px;
+  color: var(--text-2);
+  margin-top: 1px;
+}
+
+.badge {
+  background: var(--bg-card-2);
+  border: 1px solid var(--border-2);
+  border-radius: 100px;
+  padding: 3px 10px;
+  font-size: 11px;
+  color: var(--text-2);
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+
+.card-section {
+  margin-top: 16px;
+}
+
+.section-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-3);
+  margin-bottom: 10px;
+}
+
+.card-summary {
+  font-size: 13px;
+  color: var(--text-2);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+/* ── Salary Card specifics ────────────────── */
+.salary-stats {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr 1fr;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.stat-box {
+  background: var(--bg-card-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  text-align: center;
+}
+
+.median-box {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent-dim);
+}
+
+.stat-label {
+  font-size: 11px;
+  color: var(--text-3);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stat-value {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-1);
+}
+
+.stat-value.low {
+  color: var(--text-2);
+  font-size: 15px;
+}
+.stat-value.high {
+  color: var(--green);
+  font-size: 15px;
+}
+.stat-value.median {
+  color: var(--accent);
+  font-size: 20px;
+}
+
+.median-tag {
+  font-size: 10px;
+  color: var(--accent);
+  margin-top: 3px;
+}
+
+.job-mini {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  text-decoration: none;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
+  margin-bottom: 6px;
+  background: var(--bg-card-2);
+}
+
+.job-mini:hover {
+  border-color: var(--border-2);
+  background: var(--bg-card);
+}
+
+.job-mini-company {
+  font-size: 12px;
+  color: var(--text-2);
+}
+.job-mini-title {
+  font-size: 13px;
+  color: var(--text-1);
+  font-weight: 500;
+}
+.job-mini-meta {
+  font-size: 11px;
+  color: var(--text-3);
+  margin-top: 2px;
+}
+.job-mini-salary {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--green);
+  white-space: nowrap;
+}
+
+/* ── Jobs Card specifics ──────────────────── */
+.jobs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.job-card-item {
+  display: block;
+  padding: 12px 14px;
+  background: var(--bg-card-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transition: all 0.15s;
+}
+
+.job-card-item:hover {
+  border-color: var(--border-2);
+  transform: translateX(2px);
+}
+
+.job-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 5px;
+}
+
+.job-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-1);
+}
+
+.job-salary-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  white-space: nowrap;
+}
+.job-salary-tag.has-salary {
+  color: var(--green);
+}
+.job-salary-tag.muted {
+  color: var(--text-3);
+}
+
+.job-card-bottom {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.job-company {
+  font-size: 12px;
+  color: var(--text-2);
+}
+.dot {
+  color: var(--text-3);
+}
+.job-location {
+  font-size: 12px;
+  color: var(--text-3);
+}
+.job-date {
+  font-size: 11px;
+  color: var(--text-3);
+  margin-left: auto;
+}
+
+.remote-pill {
+  font-size: 10px;
+  background: rgba(99, 102, 241, 0.15);
+  color: #818cf8;
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  border-radius: 100px;
+  padding: 1px 7px;
+}
+
+/* ── Skills Card specifics ────────────────── */
+.skills-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.skill-row {
+  display: grid;
+  grid-template-columns: 90px 1fr 100px;
+  align-items: center;
+  gap: 10px;
+}
+
+.skill-name {
+  font-size: 12px;
+  color: var(--text-2);
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.skill-bar-track {
+  height: 6px;
+  background: var(--bg-card-2);
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.skill-bar-fill {
+  height: 100%;
+  border-radius: 100px;
+  transition: width 0.6s ease;
+}
+
+.skill-row-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: flex-end;
+}
+
+.skill-score {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-3);
+  min-width: 24px;
+  text-align: right;
+}
+
+.skill-trend {
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+/* ── Resume Card specifics ────────────────── */
+.ats-score-ring {
+  display: flex;
+  align-items: baseline;
+  gap: 1px;
+}
+
+.ats-score-num {
+  font-family: var(--font-mono);
+  font-size: 32px;
+  font-weight: 600;
+}
+
+.ats-score-denom {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--text-3);
+}
+
+.score-breakdown {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.breakdown-item {
+  background: var(--bg-card-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 5px 10px;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.breakdown-label {
+  font-size: 11px;
+  color: var(--text-3);
+  text-transform: capitalize;
+}
+
+.breakdown-value {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-1);
+}
+
+.pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.pill {
+  font-size: 11px;
+  border-radius: 100px;
+  padding: 3px 10px;
+  font-family: var(--font-mono);
+}
+
+.pill-miss {
+  background: rgba(255, 59, 48, 0.12);
+  color: #ff6b63;
+  border: 1px solid rgba(255, 59, 48, 0.25);
+}
+
+.pill-match {
+  background: rgba(0, 217, 139, 0.1);
+  color: var(--green);
+  border: 1px solid rgba(0, 217, 139, 0.2);
+}
+
+.suggestion-row {
+  font-size: 12px;
+  color: var(--text-2);
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  line-height: 1.5;
+}
+
+.suggestion-row:last-child {
+  border-bottom: none;
+}
+
+/* ── Report Card specifics ────────────────── */
+.gap-banner {
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  margin-bottom: 16px;
+}
+
+.gap-below {
+  background: rgba(255, 59, 48, 0.08);
+  border: 1px solid rgba(255, 59, 48, 0.2);
+}
+.gap-above {
+  background: rgba(0, 217, 139, 0.08);
+  border: 1px solid rgba(0, 217, 139, 0.2);
+}
+.gap-ok {
+  background: rgba(99, 102, 241, 0.08);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+.gap-verdict {
+  font-family: var(--font-head);
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.gap-message {
+  font-size: 13px;
+  color: var(--text-2);
+  margin-bottom: 10px;
+}
+
+.gap-nums {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  color: var(--text-3);
+}
+
+.gap-nums strong {
+  color: var(--text-1);
+}
+
+.mini-salary-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--text-2);
+  background: var(--bg-card-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.mini-salary-row strong {
+  color: var(--text-1);
+  font-family: var(--font-mono);
+}
+.divider {
+  width: 1px;
+  height: 12px;
+  background: var(--border-2);
+}
+
+.mini-skill-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.mini-skill-row:last-child {
+  border-bottom: none;
+}
+
+.mini-rank {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-3);
+  width: 20px;
+}
+.mini-skill-name {
+  font-size: 13px;
+  color: var(--text-1);
+  flex: 1;
+}
+.mini-skill-score {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-3);
+}
+.mini-skill-trend {
+  font-size: 13px;
+}
+
+.action-row {
+  font-size: 13px;
+  color: var(--text-2);
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  line-height: 1.5;
+}
+
+.action-row:last-child {
+  border-bottom: none;
+}
+
+/* Error card */
+.error-card {
+  color: #ff6b63;
+  border-color: rgba(255, 59, 48, 0.2);
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Raw JSON fallback */
+.raw-json {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-2);
+  overflow-x: auto;
+  white-space: pre-wrap;
+}
+
+.muted {
+  color: var(--text-3) !important;
+}

@@ -1,0 +1,15 @@
+/* ─────────────────────────────────────────────
+   CareerLens — CSS Index
+   Central import file for all modular stylesheets
+───────────────────────────────────────────── */
+
+/* Core design system */
+@import "./styles/tokens.css";
+@import "./styles/base.css";
+@import "./styles/animations.css";
+
+/* Component styles */
+@import "./components/ProfilePanel.css";
+@import "./components/Chat.css";
+@import "./components/cards/Cards.css";
+@import "./components/ConfirmProfileModal.css";
