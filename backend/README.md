@@ -7,12 +7,14 @@ Real-time career intelligence as an MCP server. Salary benchmarks, live job sear
 ## Quick Start
 
 ### 1. Install dependencies
+
 ```bash
 cd server
 pip install -r requirements.txt
 ```
 
 ### 2. Configure environment
+
 ```bash
 cp .env.example .env
 # Edit .env and add your keys:
@@ -21,12 +23,15 @@ cp .env.example .env
 ```
 
 ### 3a. Run the API server (for the React frontend)
+
 ```bash
 uvicorn api_server:app --host 0.0.0.0 --port 8000 --reload
 ```
+
 Test it: http://localhost:8000/health
 
 ### 3b. Run the MCP server (for Claude Desktop)
+
 ```bash
 python mcp_server.py
 ```
@@ -58,27 +63,27 @@ Restart Claude Desktop. You'll see the CareerLens tools appear in the toolbar.
 
 ## The 5 Tools
 
-| Tool | What it does | Data source |
-|---|---|---|
-| `salary_benchmark` | Median + p25/p75 for any role/location | Live job listings |
-| `job_search` | Real job listings matching role + skills | LinkedIn, Indeed, Glassdoor |
-| `skill_demand` | Demand score + trend per skill | Live job listing volume |
-| `resume_fit_score` | ATS score (0-100) + improvement tips | Algorithmic (no API needed) |
-| `career_report` | Full briefing: salary gap + jobs + skills | All of the above |
+| Tool               | What it does                              | Data source                 |
+| ------------------ | ----------------------------------------- | --------------------------- |
+| `salary_benchmark` | Median + p25/p75 for any role/location    | Live job listings           |
+| `job_search`       | Real job listings matching role + skills  | LinkedIn, Indeed, Glassdoor |
+| `skill_demand`     | Demand score + trend per skill            | Live job listing volume     |
+| `resume_fit_score` | ATS score (0-100) + improvement tips      | Algorithmic (no API needed) |
+| `career_report`    | Full briefing: salary gap + jobs + skills | All of the above            |
 
 ---
 
 ## REST API Endpoints
 
-| Method | Path | Description |
-|---|---|---|
-| `POST` | `/chat` | Agentic Claude chat with tool-use (SSE streaming) |
-| `POST` | `/tools/salary` | Direct salary benchmark call |
-| `POST` | `/tools/jobs` | Direct job search call |
-| `POST` | `/tools/skills` | Direct skill demand call |
-| `POST` | `/tools/resume` | Direct resume scoring call |
-| `POST` | `/tools/report` | Direct career report call |
-| `GET`  | `/health` | Health check |
+| Method | Path            | Description                                       |
+| ------ | --------------- | ------------------------------------------------- |
+| `POST` | `/chat`         | Agentic Claude chat with tool-use (SSE streaming) |
+| `POST` | `/tools/salary` | Direct salary benchmark call                      |
+| `POST` | `/tools/jobs`   | Direct job search call                            |
+| `POST` | `/tools/skills` | Direct skill demand call                          |
+| `POST` | `/tools/resume` | Direct resume scoring call                        |
+| `POST` | `/tools/report` | Direct career report call                         |
+| `GET`  | `/health`       | Health check                                      |
 
 Interactive API docs: http://localhost:8000/docs
 
@@ -93,7 +98,7 @@ React Frontend
       ▼
 FastAPI (api_server.py)
       │
-      ├── Anthropic SDK (Claude claude-sonnet-4-20250514)
+      ├── Anthropic SDK (Claude claude-haiku-4-5-20251001)
       │         │  tool_use
       │         ▼
       └── Tools (tools/*.py) ──► JSearch API (salary, jobs, skills)

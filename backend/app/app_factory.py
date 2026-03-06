@@ -4,9 +4,12 @@ import io
 from typing import Any
 
 import anthropic
-from fastapi import FastAPI, File, HTTPException, UploadFile
+from fastapi import FastAPI, File, HTTPException, Request, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.errors import RateLimitExceeded
+from slowapi.util import get_remote_address
 
 from app.chat_service import build_system_prompt, stream_agentic_response
 from app.models import (
@@ -29,6 +32,8 @@ from tools import (
     score_resume_fit,
 )
 
+RATE_LIMIT = "10/hour"
+
 
 def create_app(client: Any | None = None) -> FastAPI:
     """Create and configure the FastAPI app."""
@@ -41,6 +46,10 @@ def create_app(client: Any | None = None) -> FastAPI:
         version="1.0.0",
     )
 
+    limiter = Limiter(key_func=get_remote_address)
+    app.state.limiter = limiter
+    app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+
     app.add_middleware(
         CORSMiddleware,
         allow_origins=["*"],
@@ -50,8 +59,10 @@ def create_app(client: Any | None = None) -> FastAPI:
     )
 
     @app.post("/chat")
-    async def chat(request: ChatRequest):
+    @limiter.limit(RATE_LIMIT)
+    async def chat(http_request: Request, request: ChatRequest):
         """Agentic Claude endpoint with SSE streaming events."""
+        _ = http_request
         system = build_system_prompt(request.profile)
         messages = [
             {"role": message.role, "content": message.content} for message in request.messages
@@ -64,7 +75,9 @@ def create_app(client: Any | None = None) -> FastAPI:
         )
 
     @app.post("/tools/salary")
-    async def tool_salary(req: SalaryRequest):
+    @limiter.limit(RATE_LIMIT)
+    async def tool_salary(http_request: Request, req: SalaryRequest):
+        _ = http_request
         return await get_salary_benchmark(
             role=req.role,
             location=req.location,
@@ -73,7 +86,9 @@ def create_app(client: Any | None = None) -> FastAPI:
         )
 
     @app.post("/tools/jobs")
-    async def tool_jobs(req: JobsRequest):
+    @limiter.limit(RATE_LIMIT)
+    async def tool_jobs(http_request: Request, req: JobsRequest):
+        _ = http_request
         return await find_jobs(
             role=req.role,
             skills=req.skills,
@@ -83,18 +98,24 @@ def create_app(client: Any | None = None) -> FastAPI:
         )
 
     @app.post("/tools/skills")
-    async def tool_skills(req: SkillsRequest):
+    @limiter.limit(RATE_LIMIT)
+    async def tool_skills(http_request: Request, req: SkillsRequest):
+        _ = http_request
         return await analyze_skill_demand(skills=req.skills, location=req.location)
 
     @app.post("/tools/resume")
-    async def tool_resume(req: ResumeRequest):
+    @limiter.limit(RATE_LIMIT)
+    async def tool_resume(http_request: Request, req: ResumeRequest):
+        _ = http_request
         return score_resume_fit(
             resume_text=req.resume_text,
             job_description=req.job_description,
         )
 
     @app.post("/tools/report")
-    async def tool_report(req: ReportRequest):
+    @limiter.limit(RATE_LIMIT)
+    async def tool_report(http_request: Request, req: ReportRequest):
+        _ = http_request
         return await get_career_report(
             role=req.role,
             skills=req.skills,
@@ -105,11 +126,13 @@ def create_app(client: Any | None = None) -> FastAPI:
         )
 
     @app.post("/tools/parse-cv")
-    async def parse_cv_endpoint(file: UploadFile = File(...)):
+    @limiter.limit(RATE_LIMIT)
+    async def parse_cv_endpoint(http_request: Request, file: UploadFile = File(...)):
         """
         Accept a PDF resume upload, extract text, and return structured profile data.
         Frontend sends multipart/form-data with a PDF file.
         """
+        _ = http_request
         if not file.filename.endswith(".pdf"):
             raise HTTPException(status_code=400, detail="Only PDF files are supported.")
 
@@ -146,15 +169,19 @@ def create_app(client: Any | None = None) -> FastAPI:
         return result
 
     @app.post("/tools/parse-linkedin")
-    async def parse_linkedin_endpoint(req: LinkedInRequest):
+    @limiter.limit(RATE_LIMIT)
+    async def parse_linkedin_endpoint(http_request: Request, req: LinkedInRequest):
         """
         Accept a LinkedIn profile URL and return structured profile data.
         """
+        _ = http_request
         result = await parse_linkedin_profile(req.url)
         return result
 
     @app.get("/health")
-    async def health():
+    @limiter.limit(RATE_LIMIT)
+    async def health(http_request: Request):
+        _ = http_request
         return {
             "status": "ok",
             "service": "CareerLens API",
