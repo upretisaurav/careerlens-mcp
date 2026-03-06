@@ -60,12 +60,12 @@ def create_app(client: Any | None = None) -> FastAPI:
 
     @app.post("/chat")
     @limiter.limit(RATE_LIMIT)
-    async def chat(http_request: Request, request: ChatRequest):
+    async def chat(request: Request, payload: ChatRequest):
         """Agentic Claude endpoint with SSE streaming events."""
-        _ = http_request
-        system = build_system_prompt(request.profile)
+        system = build_system_prompt(payload.profile)
         messages = [
-            {"role": message.role, "content": message.content} for message in request.messages
+            {"role": message.role, "content": message.content}
+            for message in payload.messages
         ]
 
         return StreamingResponse(
@@ -76,8 +76,8 @@ def create_app(client: Any | None = None) -> FastAPI:
 
     @app.post("/tools/salary")
     @limiter.limit(RATE_LIMIT)
-    async def tool_salary(http_request: Request, req: SalaryRequest):
-        _ = http_request
+    async def tool_salary(request: Request, req: SalaryRequest):
+        _ = request
         return await get_salary_benchmark(
             role=req.role,
             location=req.location,
@@ -87,8 +87,8 @@ def create_app(client: Any | None = None) -> FastAPI:
 
     @app.post("/tools/jobs")
     @limiter.limit(RATE_LIMIT)
-    async def tool_jobs(http_request: Request, req: JobsRequest):
-        _ = http_request
+    async def tool_jobs(request: Request, req: JobsRequest):
+        _ = request
         return await find_jobs(
             role=req.role,
             skills=req.skills,
@@ -99,14 +99,14 @@ def create_app(client: Any | None = None) -> FastAPI:
 
     @app.post("/tools/skills")
     @limiter.limit(RATE_LIMIT)
-    async def tool_skills(http_request: Request, req: SkillsRequest):
-        _ = http_request
+    async def tool_skills(request: Request, req: SkillsRequest):
+        _ = request
         return await analyze_skill_demand(skills=req.skills, location=req.location)
 
     @app.post("/tools/resume")
     @limiter.limit(RATE_LIMIT)
-    async def tool_resume(http_request: Request, req: ResumeRequest):
-        _ = http_request
+    async def tool_resume(request: Request, req: ResumeRequest):
+        _ = request
         return score_resume_fit(
             resume_text=req.resume_text,
             job_description=req.job_description,
@@ -114,8 +114,8 @@ def create_app(client: Any | None = None) -> FastAPI:
 
     @app.post("/tools/report")
     @limiter.limit(RATE_LIMIT)
-    async def tool_report(http_request: Request, req: ReportRequest):
-        _ = http_request
+    async def tool_report(request: Request, req: ReportRequest):
+        _ = request
         return await get_career_report(
             role=req.role,
             skills=req.skills,
@@ -127,12 +127,12 @@ def create_app(client: Any | None = None) -> FastAPI:
 
     @app.post("/tools/parse-cv")
     @limiter.limit(RATE_LIMIT)
-    async def parse_cv_endpoint(http_request: Request, file: UploadFile = File(...)):
+    async def parse_cv_endpoint(request: Request, file: UploadFile = File(...)):
         """
         Accept a PDF resume upload, extract text, and return structured profile data.
         Frontend sends multipart/form-data with a PDF file.
         """
-        _ = http_request
+        _ = request
         if not file.filename.endswith(".pdf"):
             raise HTTPException(status_code=400, detail="Only PDF files are supported.")
 
@@ -170,18 +170,18 @@ def create_app(client: Any | None = None) -> FastAPI:
 
     @app.post("/tools/parse-linkedin")
     @limiter.limit(RATE_LIMIT)
-    async def parse_linkedin_endpoint(http_request: Request, req: LinkedInRequest):
+    async def parse_linkedin_endpoint(request: Request, req: LinkedInRequest):
         """
         Accept a LinkedIn profile URL and return structured profile data.
         """
-        _ = http_request
+        _ = request
         result = await parse_linkedin_profile(req.url)
         return result
 
     @app.get("/health")
     @limiter.limit(RATE_LIMIT)
-    async def health(http_request: Request):
-        _ = http_request
+    async def health(request: Request):
+        _ = request
         return {
             "status": "ok",
             "service": "CareerLens API",
