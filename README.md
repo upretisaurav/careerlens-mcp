@@ -2,6 +2,8 @@
 
 > Real-time career intelligence as an MCP server. Ask Claude if you're underpaid, find live job listings, benchmark your skills, and score your resume — all in one chat.
 
+![CareerLens demo](assets/careerLens.gif)
+
 ## **[Live Demo →](https://careerlens-mcp.vercel.app/)** &nbsp;|&nbsp; **[Backend API Docs →](https://backend-production-17b1d.up.railway.app/docs)**
 
 ## What It Does
