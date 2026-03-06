@@ -98,7 +98,7 @@ React Frontend
       ▼
 FastAPI (api_server.py)
       │
-      ├── Anthropic SDK (Claude claude-haiku-4-5-20251001)
+      ├── Anthropic SDK (Claude claude-sonnet-4-20250514)
       │         │  tool_use
       │         ▼
       └── Tools (tools/*.py) ──► JSearch API (salary, jobs, skills)
